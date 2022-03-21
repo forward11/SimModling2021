@@ -18,4 +18,35 @@
 半径为 1，高为 1 的圆锥体的质量
 '''
 
+# %% 
+# practice 1
+# 1 自由落体
+import numpy as np
+def freeFall(t, dt):
+    time = np.arange(0, t, dt)
+    return 0.5*9.8*time**2
+
+res = freeFall(10,1)
+res
 # %%
+# 3 求积分
+xn = np.linspace(0, 1, 100)
+grid = np.meshgrid(xn, xn, xn)
+
+def f(x,y,z):
+    return x**y-z
+allPoint = f(*grid)
+I = np.average(allPoint)
+I
+# %%
+# practice 2
+# 求圆锥体的质量
+from scipy import integrate
+def f(x,y,z):
+    return x**2*y**2*z**2
+
+I = integrate.tplquad(f,-1,1, lambda x: -(1-x**2)**0.5,
+                        lambda x:(1-x**2)**0.5,
+                        lambda x,y: 0,
+                        lambda x,y: 1-(x**2+y**2)**0.5)
+I
